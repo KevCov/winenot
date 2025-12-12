@@ -18,61 +18,90 @@ class APICaller {
     
     private init() {}
     
-    func request<T: Codable, R: Codable>(
-            url: String,
-            method: HTTPMethod,
-            body: T? = nil,
-            expecting: R.Type,
-            completion: @escaping (Result<R, Error>) -> Void
-        ) {
-            guard let endpoint = URL(string: url) else {
-                completion(.failure(APIError.badUrl))
+    func postRequest<T: Codable, R: Codable>(
+        url: String,
+        method: String,
+        body: T,
+        completion: @escaping (Result<R, Error>) -> Void
+    ) {
+        guard let endpoint = URL(string: url) else {
+            completion(.failure(URLError(.badURL)))
+            return
+        }
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = method
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(body)
+        } catch {
+            completion(.failure(error))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
                 return
             }
             
-            var request = URLRequest(url: endpoint)
-            request.httpMethod = method.rawValue
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            if let token = UserDefaults.standard.string(forKey: "accessToken") {
-                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            guard let http = response as? HTTPURLResponse,
+                  (200..<300).contains(http.statusCode) else {
+                completion(.failure(URLError(.badServerResponse)))
+                return
             }
             
-            if let body = body {
-                do {
-                    request.httpBody = try JSONEncoder().encode(body)
-                } catch {
-                    completion(.failure(error))
-                    return
-                }
+            guard let data = data else {
+                completion(.failure(URLError(.cannotDecodeRawData)))
+                return
             }
             
-            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-                guard let self = self else { return }
-                
-                if let error = error {
-                    DispatchQueue.main.async { completion(.failure(error)) }
-                    return
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                    let code = (response as? HTTPURLResponse)?.statusCode ?? 0
-                    DispatchQueue.main.async { completion(.failure(APIError.badResponse(statusCode: code))) }
-                    return
-                }
-                
-                guard let data = data else {
-                    DispatchQueue.main.async { completion(.failure(APIError.failedToGetData)) }
-                    return
-                }
-                
-                do {
-                    let result = try self.decoder.decode(R.self, from: data)
-                    DispatchQueue.main.async { completion(.success(result)) }
-                } catch {
-                    DispatchQueue.main.async { completion(.failure(error)) }
-                }
-                
-            }.resume()
+            do {
+                let decoded = try JSONDecoder().decode(R.self, from: data)
+                completion(.success(decoded))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+    
+    func getRequest<R: Codable>(
+        url: String,
+        completion: @escaping (Result<R, Error>) -> Void
+    ) {
+        guard let endpoint = URL(string: url) else {
+            completion(.failure(URLError(.badURL)))
+            return
         }
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let http = response as? HTTPURLResponse,
+                  (200..<300).contains(http.statusCode) else {
+                completion(.failure(URLError(.badServerResponse)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(URLError(.cannotDecodeRawData)))
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(R.self, from: data)
+                completion(.success(decoded))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+    
 }

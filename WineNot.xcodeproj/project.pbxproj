@@ -31,6 +31,12 @@
 		93819FD72EE50657002B5876 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93819FCD2EE50657002B5876 /* LaunchScreen.storyboard */; };
 		93819FD82EE50657002B5876 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93819FCF2EE50657002B5876 /* Main.storyboard */; };
 		93819FDB2EE5069C002B5876 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93819FDA2EE5069C002B5876 /* APICaller.swift */; };
+		9383577C2EE9BE7D0084B1A2 /* Extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9383577B2EE9BE720084B1A2 /* Extension+UILabel.swift */; };
+		93848B282EE8FE1D00AD040C /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93848B272EE8FE1D00AD040C /* ProfileController.swift */; };
+		93848B2A2EE8FE2D00AD040C /* CartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93848B292EE8FE2D00AD040C /* CartController.swift */; };
+		93848B2D2EE901CC00AD040C /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93848B2C2EE901CC00AD040C /* ProductCollectionViewCell.xib */; };
+		93848B2E2EE901CC00AD040C /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93848B2B2EE901CC00AD040C /* ProductCollectionViewCell.swift */; };
+		93861E362EEAF7330063163F /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93861E352EEAF71B0063163F /* Pageable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,12 @@
 		93819FCE2EE50657002B5876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93819FD02EE50657002B5876 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		93819FDA2EE5069C002B5876 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		9383577B2EE9BE720084B1A2 /* Extension+UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UILabel.swift"; sourceTree = "<group>"; };
+		93848B272EE8FE1D00AD040C /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		93848B292EE8FE2D00AD040C /* CartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartController.swift; sourceTree = "<group>"; };
+		93848B2B2EE901CC00AD040C /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		93848B2C2EE901CC00AD040C /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		93861E352EEAF71B0063163F /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,7 @@
 		93191A302EE65A0B0055E2B7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9383577B2EE9BE720084B1A2 /* Extension+UILabel.swift */,
 				93191A332EE65B720055E2B7 /* Extension+UIImageView.swift */,
 				93191A312EE65A360055E2B7 /* Extension+UIButton.swift */,
 			);
@@ -85,6 +98,7 @@
 		93191A352EE6602A0055E2B7 /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				93861E352EEAF71B0063163F /* Pageable.swift */,
 				93191A422EE662960055E2B7 /* CategoryResponse.swift */,
 				93191A402EE6628E0055E2B7 /* BrandResponse.swift */,
 				93191A3E2EE662810055E2B7 /* ProductResponse.swift */,
@@ -147,6 +161,10 @@
 			isa = PBXGroup;
 			children = (
 				93819FCA2EE50657002B5876 /* HomeController.swift */,
+				93848B272EE8FE1D00AD040C /* ProfileController.swift */,
+				93848B292EE8FE2D00AD040C /* CartController.swift */,
+				93848B2B2EE901CC00AD040C /* ProductCollectionViewCell.swift */,
+				93848B2C2EE901CC00AD040C /* ProductCollectionViewCell.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -248,6 +266,7 @@
 			files = (
 				93819FD52EE50657002B5876 /* Assets.xcassets in Resources */,
 				93819FD72EE50657002B5876 /* LaunchScreen.storyboard in Resources */,
+				93848B2D2EE901CC00AD040C /* ProductCollectionViewCell.xib in Resources */,
 				93819FD82EE50657002B5876 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,11 +286,15 @@
 				93819FDB2EE5069C002B5876 /* APICaller.swift in Sources */,
 				93191A552EE67D410055E2B7 /* AddressResponse.swift in Sources */,
 				93191A512EE67C9B0055E2B7 /* CustomerResponse.swift in Sources */,
+				93848B282EE8FE1D00AD040C /* ProfileController.swift in Sources */,
 				93191A4B2EE677BC0055E2B7 /* OrderItemResponse.swift in Sources */,
+				93848B2E2EE901CC00AD040C /* ProductCollectionViewCell.swift in Sources */,
 				93191A602EE683390055E2B7 /* PaymentMethod.swift in Sources */,
 				93191A412EE662920055E2B7 /* BrandResponse.swift in Sources */,
+				93848B2A2EE8FE2D00AD040C /* CartController.swift in Sources */,
 				93191A472EE6769E0055E2B7 /* OrderResponse.swift in Sources */,
 				93191A342EE65B880055E2B7 /* Extension+UIImageView.swift in Sources */,
+				9383577C2EE9BE7D0084B1A2 /* Extension+UILabel.swift in Sources */,
 				93191A492EE676C10055E2B7 /* ShippingResponse.swift in Sources */,
 				93191A4D2EE679D90055E2B7 /* ProductPurchaseRequest.swift in Sources */,
 				93191A582EE67EBB0055E2B7 /* UserRequest.swift in Sources */,
@@ -279,6 +302,7 @@
 				93191A322EE65A360055E2B7 /* Extension+UIButton.swift in Sources */,
 				93191A3F2EE6628B0055E2B7 /* ProductResponse.swift in Sources */,
 				93191A432EE6629D0055E2B7 /* CategoryResponse.swift in Sources */,
+				93861E362EEAF7330063163F /* Pageable.swift in Sources */,
 				93191A5A2EE67EC20055E2B7 /* UserResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
