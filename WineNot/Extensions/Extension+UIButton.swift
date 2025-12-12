@@ -8,8 +8,10 @@
 import UIKit
 
 extension UIButton {
-    func setText(text: String) {
+    func setText(text: String, color: UIColor, size: CGFloat, weight: UIFont.Weight) {
         self.setTitle(text, for: .normal)
+        self.setTitleColor(color, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: size, weight: weight)
     }
     
     func setBorder(color: UIColor, width: CGFloat) {
