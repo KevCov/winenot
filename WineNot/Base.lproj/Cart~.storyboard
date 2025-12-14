@@ -3,6 +3,8 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,12 +21,28 @@
                     <connections>
                         <segue destination="e09-CR-95T" kind="relationship" relationship="viewControllers" id="8j8-nA-jlx"/>
                         <segue destination="bjk-ch-9Uw" kind="relationship" relationship="viewControllers" id="uja-eQ-TgJ"/>
-                        <segue destination="Uxp-A2-w2D" kind="relationship" relationship="viewControllers" id="Fpc-pv-eid"/>
+                        <segue destination="hwi-7E-uNc" kind="relationship" relationship="viewControllers" id="Fpc-pv-eid"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBS-GH-jNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="558" y="183"/>
+        </scene>
+        <!--Cart-->
+        <scene sceneID="EfA-z8-zDK">
+            <objects>
+                <viewController id="hwi-7E-uNc" customClass="CartController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RKD-LK-t2I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2Rd-cj-1xb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Cart" image="carrito-de-compras" selectedImage="carrito-de-compras" id="7gk-F9-3PM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pgn-Ub-Mhv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="930"/>
         </scene>
         <!--Store-->
         <scene sceneID="xLv-i5-teW">
@@ -34,7 +52,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfC-UM-OZI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234" y="601"/>
+            <point key="canvasLocation" x="233" y="595"/>
         </scene>
         <!--Profile-->
         <scene sceneID="zzE-8l-mwh">
@@ -44,17 +62,13 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89y-7V-Q9j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="557" y="601"/>
-        </scene>
-        <!--Cart-->
-        <scene sceneID="kgu-jL-GT2">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Cart" id="Uxp-A2-w2D" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="jfd-hi-kXF"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1PO-eB-8da" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="890" y="594"/>
+            <point key="canvasLocation" x="557" y="605"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="carrito-de-compras" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

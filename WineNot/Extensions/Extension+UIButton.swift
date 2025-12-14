@@ -19,10 +19,6 @@ extension UIButton {
         self.layer.borderWidth = width
     }
     
-    func setBackgroundColor(color: UIColor) {
-        self.backgroundColor = color
-    }
-    
     func setRadius(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.clipsToBounds = true

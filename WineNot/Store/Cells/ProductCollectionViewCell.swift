@@ -8,7 +8,7 @@
 import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
-    
+    static let identifier = "ProductCollectionViewCell"
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
@@ -18,14 +18,14 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellStyle()
-        addButton.setText(text: "Agregar", color: .white, size: 12, weight: .bold)
-        addButton.setBackgroundColor(color: .blue)
+        addButton.setText(text: "Agregar", color: UIColor(named: "text-primary") ?? .white, size: 12, weight: .bold)
+        addButton.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
         addButton.setRadius(radius: 10)
     }
     
     func setupCellStyle() {
         self.layer.cornerRadius = 12
-        self.backgroundColor = .white
+        self.setBackgroundColor(color: .white)
         
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.1
