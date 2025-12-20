@@ -14,6 +14,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productDescriptionLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    var onAddButtonTapped: (() -> Void)?
+    private var currentProduct: ProductCellViewModel?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +23,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
         addButton.setText(text: "Agregar", color: UIColor(named: "text-primary") ?? .white, size: 12, weight: .bold)
         addButton.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
         addButton.setRadius(radius: 10)
+        
+        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+    }
+    
+    @objc private func didTapAddButton() {
+        onAddButtonTapped?()
     }
     
     func setupCellStyle() {
@@ -36,6 +44,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     func updateCell(model: ProductCellViewModel) {
+        self.currentProduct = model
         productImageView.setImage(name: model.imageName)
         productNameLabel.configure(text: model.name, color: .black, size: 14, weight: .bold)
         productDescriptionLabel.configure(text: model.description, color: .black, size: 12)

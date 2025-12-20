@@ -10,19 +10,44 @@ import UIKit
 class StoreController: UIViewController {
     
     @IBOutlet weak var productCollection: UICollectionView!
-    var products: [ProductCellViewModel] = []
+    var products: [ProductCellViewModel] = [
+        ProductCellViewModel(
+                name: "Cafetera Espresso",
+                price: "89.50",
+                description: "Máquina automática con espumador de leche integrado.",
+                imageName: "concha-toro-marques-cabernet"
+            ),
+            ProductCellViewModel(
+                name: "Silla de Oficina Ergonómica",
+                price: "210.00",
+                description: "Soporte lumbar ajustable y malla transpirable.",
+                imageName: "concha-todo-melchor-cabernet"
+            ),
+            ProductCellViewModel(
+                name: "Reloj Inteligente Serie 9",
+                price: "399.00",
+                description: "Monitoreo de salud avanzado y pantalla siempre activa.",
+                imageName: "fond-cave-reserva-cabernet"
+            ),
+            ProductCellViewModel(
+                name: "Mochila Impermeable",
+                price: "45.00",
+                description: "Capacidad de 20L con compartimento para laptop de 15 pulgadas.",
+                imageName: "concha-toro-marques-cabernet"
+            )
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
-        productCollection.setBackgroundColor(color: .clear)
         setupCollectionView()
     }
     
     func setupCollectionView() {
         productCollection.delegate = self
         productCollection.dataSource = self
-        
+        productCollection.setBackgroundColor(color: .clear)
+
         let headerNib = UINib(nibName: "StoreHeaderView", bundle: nil)
         productCollection.register(headerNib,
                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -39,7 +64,7 @@ class StoreController: UIViewController {
         layout.headerReferenceSize = CGSize(width: view.frame.size.width, height: 250)
         productCollection.collectionViewLayout = layout
         
-        loadProducts()
+        //loadProducts()
     }
     
     func loadProducts() {
@@ -79,6 +104,16 @@ extension StoreController: UICollectionViewDelegate, UICollectionViewDataSource,
         let indice = indexPath.row
         let product = products[indice]
         cell.updateCell(model: product)
+        
+        cell.onAddButtonTapped = {
+            let productCart = ProductCartCellModel(name: product.name, unitPrice: Double(product.price) ?? 0.0, urlImage: product.imageName, quantity: 1)
+            CartManager.shared.add(product: productCart)
+            
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+            
+            print("Producto agregado")
+        }
         
         return cell
     }
