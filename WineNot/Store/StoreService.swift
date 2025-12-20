@@ -13,7 +13,6 @@ class StoreService {
         let url = "http://localhost:8050/api/v1/products"
         
         APICaller.shared.request(url: url, method: .GET, body: nil as String?) { (result: Result<Pageable, Error>) in
-            
             switch result {
             case .success(let pageableResponse):
                 completion(.success(pageableResponse.content))

@@ -23,24 +23,17 @@ class ProductCollectionViewCell: UICollectionViewCell {
         addButton.setText(text: "Agregar", color: UIColor(named: "text-primary") ?? .white, size: 12, weight: .bold)
         addButton.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
         addButton.setRadius(radius: 10)
-        
-        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
     }
     
-    @objc private func didTapAddButton() {
+    @IBAction func didTapAddButton(_ sender: Any) {
+        animateAddButtonEffect()
         onAddButtonTapped?()
     }
     
     func setupCellStyle() {
-        self.layer.cornerRadius = 12
         self.setBackgroundColor(color: .white)
-        
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.1
-        self.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.layer.shadowRadius = 4
-        
-        self.layer.masksToBounds = false
+        self.rounded(radius: 12)
+        self.setShadow()
     }
     
     func updateCell(model: ProductCellViewModel) {
@@ -50,11 +43,23 @@ class ProductCollectionViewCell: UICollectionViewCell {
         productDescriptionLabel.configure(text: model.description, color: .black, size: 12)
         productPriceLabel.configure(text: "S/. \(model.price)", color: .black, size: 14, weight: .bold)
     }
-}
-
-struct ProductCellViewModel {
-    let name: String
-    let price: String
-    let description: String
-    let imageName: String
+    
+    func animateAddButtonEffect() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+            self.addButton.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
+        }) { _ in
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.5,
+                           initialSpringVelocity: 6.0,
+                           options: .allowUserInteraction,
+                           animations: {
+                self.addButton.transform = .identity
+            }, completion: nil)
+        }
+    }
 }

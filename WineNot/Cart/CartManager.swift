@@ -15,15 +15,11 @@ class CartManager {
     
     func add(product: ProductCartCellModel) {
         if let index = items.firstIndex(where: { $0.name == product.name }) {
-            // ¡YA EXISTE! Solo aumentamos la cantidad
             items[index].quantity += 1
-            print("Cantidad actualizada: \(items[index].name) ahora tiene \(items[index].quantity)")
         } else {
-            // ¡ES NUEVO! Lo agregamos con cantidad 1
             var newProduct = product
             newProduct.quantity = 1
             items.append(newProduct)
-            print("Nuevo producto agregado: \(product.name)")
         }
         
         NotificationCenter.default.post(name: NSNotification.Name("CartUpdated"), object: nil)
@@ -34,7 +30,6 @@ class CartManager {
         items[index].quantity += 1
     }
     
-    // 3. DISMINUIR CANTIDAD (-)
     func decreaseQuantity(at index: Int) {
         guard index < items.count else { return }
         

@@ -18,23 +18,23 @@ class CartController: UIViewController {
     @IBOutlet weak var generateOrderButton: UIButton!
     @IBOutlet weak var productCartTableView: UITableView!
     let colorText = UIColor(named: "text-primary") ?? .white
+    let colorBackground = UIColor(named: "color-background") ?? .green
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
+        view.setBackgroundColor(color: colorBackground)
         
         subtotalLabel.configure(text: "Subtotal", color: colorText, size: 14, weight: .bold)
         igvLabel.configure(text: "Impuesto", color: colorText, size: 14, weight: .bold)
         totalLabel.configure(text: "A Pagar", color: colorText, size: 14, weight: .bold)
         
-        generateOrderButton.setText(text: "Generar Orden", color: UIColor(named: "color-background") ?? .green, size: 16, weight: .bold)
+        generateOrderButton.setText(text: "Generar Orden", color: colorBackground, size: 16, weight: .bold)
         generateOrderButton.setBackgroundColor(color: colorText)
         generateOrderButton.setRadius(radius: 10)
         
-        productCartTableView.dataSource = self
-        productCartTableView.delegate = self
+        productCartTableView.setDelegate(vc: self)
         productCartTableView.setBackgroundColor(color: .clear)
-        productCartTableView.register(UINib(nibName: "ProductCartCell", bundle: nil), forCellReuseIdentifier: ProductCartCell.identifier)
+        productCartTableView.setCell(uinibName: "ProductCartCell", cellIdentifier: ProductCartCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,12 +43,12 @@ class CartController: UIViewController {
         updateTotals()
     }
     
-    func reloadCartData() {
+    private func reloadCartData() {
         productCartTableView.reloadData()
         updateTotals()
     }
     
-    func updateTotals() {
+    private func updateTotals() {
         let total = CartManager.shared.getTotal()
         let subtotal = total / 1.18
         let igv = total - subtotal

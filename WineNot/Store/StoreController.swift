@@ -12,29 +12,29 @@ class StoreController: UIViewController {
     @IBOutlet weak var productCollection: UICollectionView!
     var products: [ProductCellViewModel] = [
         ProductCellViewModel(
-                name: "Cafetera Espresso",
-                price: "89.50",
-                description: "Máquina automática con espumador de leche integrado.",
-                imageName: "concha-toro-marques-cabernet"
-            ),
-            ProductCellViewModel(
-                name: "Silla de Oficina Ergonómica",
-                price: "210.00",
-                description: "Soporte lumbar ajustable y malla transpirable.",
-                imageName: "concha-todo-melchor-cabernet"
-            ),
-            ProductCellViewModel(
-                name: "Reloj Inteligente Serie 9",
-                price: "399.00",
-                description: "Monitoreo de salud avanzado y pantalla siempre activa.",
-                imageName: "fond-cave-reserva-cabernet"
-            ),
-            ProductCellViewModel(
-                name: "Mochila Impermeable",
-                price: "45.00",
-                description: "Capacidad de 20L con compartimento para laptop de 15 pulgadas.",
-                imageName: "concha-toro-marques-cabernet"
-            )
+            name: "Trapiche Fond de Cave Cabernet Sauvignon 750ml 2020",
+            price: "89.50",
+            description: "Cabernet Sauvignon intenso, frutos negros, especias y roble. Un vino con gran estructura y elegancia.",
+            imageName: "concha-toro-marques-cabernet"
+        ),
+        ProductCellViewModel(
+            name: "Luigi Bosca Gala 1 Malbec 750ml 2019",
+            price: "210.00",
+            description: "Malbec de parcela única, frutos rojos, flores y minerales. Un vino complejo y elegante con gran potencial de guarda.",
+            imageName: "concha-todo-melchor-cabernet"
+        ),
+        ProductCellViewModel(
+            name: "Catena Zapata D.V. Catena Cabernet-Malbec 750ml 2019",
+            price: "399.00",
+            description: "Blend equilibrado, frutos negros, especias y notas florales. Un vino complejo y elegante.",
+            imageName: "fond-cave-reserva-cabernet"
+        ),
+        ProductCellViewModel(
+            name: "Concha y Toro Amelia Chardonnay 750ml 2021",
+            price: "45.00",
+            description: "Chardonnay elegante, cítricos, minerales y roble francés. Un vino fresco y complejo.",
+            imageName: "concha-toro-marques-cabernet"
+        )
     ]
     
     override func viewDidLoad() {
@@ -44,30 +44,16 @@ class StoreController: UIViewController {
     }
     
     func setupCollectionView() {
-        productCollection.delegate = self
-        productCollection.dataSource = self
+        productCollection.setDetegate(vc: self)
         productCollection.setBackgroundColor(color: .clear)
-
-        let headerNib = UINib(nibName: "StoreHeaderView", bundle: nil)
-        productCollection.register(headerNib,
-                                   forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                   withReuseIdentifier: StoreHeaderView.identifier)
-        
-        let nib = UINib(nibName: "ProductCollectionViewCell", bundle: nil)
-        productCollection.register(nib, forCellWithReuseIdentifier: ProductCollectionViewCell.identifier)
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.headerReferenceSize = CGSize(width: view.frame.size.width, height: 250)
-        productCollection.collectionViewLayout = layout
+        productCollection.setHeader(uinibName: "StoreHeaderView", cellIdentifier: StoreHeaderView.identifier)
+        productCollection.setCell(uinibName: "ProductCollectionViewCell", cellIdentifier: ProductCollectionViewCell.identifier)
+        productCollection.collectionViewLayout = createCompositionalLayout()
         
         //loadProducts()
     }
     
-    func loadProducts() {
+    private func loadProducts() {
         StoreService.shared.getProducts { [weak self] result in
             guard let self = self else { return }
             
@@ -91,6 +77,36 @@ class StoreController: UIViewController {
             }
         }
     }
+    
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(390)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(250)
+        )
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
 }
 
 extension StoreController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -111,8 +127,6 @@ extension StoreController: UICollectionViewDelegate, UICollectionViewDataSource,
             
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
-            
-            print("Producto agregado")
         }
         
         return cell
@@ -142,5 +156,4 @@ extension StoreController: UICollectionViewDelegate, UICollectionViewDataSource,
         }
         return UICollectionReusableView()
     }
-    
 }
