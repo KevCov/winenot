@@ -41,6 +41,9 @@
                         </constraints>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                        <connections>
+                            <action selector="didTapAddButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Nma-Nj-Cs4"/>
+                        </connections>
                     </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="boE-tn-5C4">
                         <rect key="frame" x="21.666666666666671" y="10" width="150" height="120"/>

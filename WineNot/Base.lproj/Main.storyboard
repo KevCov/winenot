@@ -3,9 +3,6 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,9 +17,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8j8-nA-jlx"/>
-                        <segue destination="TLD-OL-ZCy" kind="relationship" relationship="viewControllers" id="uja-eQ-TgJ"/>
-                        <segue destination="hwi-7E-uNc" kind="relationship" relationship="viewControllers" id="Fpc-pv-eid"/>
+                        <segue destination="e09-CR-95T" kind="relationship" relationship="viewControllers" id="8j8-nA-jlx"/>
+                        <segue destination="bjk-ch-9Uw" kind="relationship" relationship="viewControllers" id="uja-eQ-TgJ"/>
+                        <segue destination="Uxp-A2-w2D" kind="relationship" relationship="viewControllers" id="Fpc-pv-eid"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBS-GH-jNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -30,100 +27,34 @@
             <point key="canvasLocation" x="558" y="183"/>
         </scene>
         <!--Store-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="xLv-i5-teW">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lW7-Oo-fyX">
-                                <rect key="frame" x="159.33333333333334" y="120.00000000000001" width="56.666666666666657" height="27.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G3S-az-uCV">
-                                <rect key="frame" x="0.0" y="167.66666666666669" width="375" height="527.33333333333326"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FoU-jW-rfS">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Kyf-KH-Ear">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1IO-B2-PDh">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="G3S-az-uCV" secondAttribute="bottom" id="8VV-ZS-qm4"/>
-                            <constraint firstItem="G3S-az-uCV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JUR-7F-OD5"/>
-                            <constraint firstItem="lW7-Oo-fyX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-v1-1Rk"/>
-                            <constraint firstItem="G3S-az-uCV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="T7H-fT-wIV"/>
-                            <constraint firstItem="G3S-az-uCV" firstAttribute="top" secondItem="lW7-Oo-fyX" secondAttribute="bottom" constant="20" id="mWZ-um-agh"/>
-                            <constraint firstItem="lW7-Oo-fyX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xxe-9k-yOa"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Store" image="tienda" selectedImage="tienda" id="u8C-CX-Q8i"/>
-                    <connections>
-                        <outlet property="productCollection" destination="G3S-az-uCV" id="rVh-Q9-l3I"/>
-                        <outlet property="shopTitle" destination="lW7-Oo-fyX" id="JnU-mE-Iv8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Store" id="e09-CR-95T" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="aPS-ao-dGF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vfC-UM-OZI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="929.55665024630548"/>
+            <point key="canvasLocation" x="234" y="601"/>
         </scene>
         <!--Profile-->
-        <scene sceneID="qnS-yg-lbP">
+        <scene sceneID="zzE-8l-mwh">
             <objects>
-                <viewController id="TLD-OL-ZCy" customClass="ProfileController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qty-ym-n0A">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Uwg-6P-BwD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="usuario" selectedImage="usuario" id="wQa-n6-a07"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x2u-bg-kG6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Profile" id="bjk-ch-9Uw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="5Kc-gs-rQY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="89y-7V-Q9j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="558" y="930"/>
+            <point key="canvasLocation" x="557" y="601"/>
         </scene>
         <!--Cart-->
-        <scene sceneID="EfA-z8-zDK">
+        <scene sceneID="kgu-jL-GT2">
             <objects>
-                <viewController id="hwi-7E-uNc" customClass="CartController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RKD-LK-t2I">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="2Rd-cj-1xb"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Cart" image="carrito-de-compras" selectedImage="carrito-de-compras" id="7gk-F9-3PM"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pgn-Ub-Mhv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Cart" id="Uxp-A2-w2D" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="jfd-hi-kXF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1PO-eB-8da" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="930"/>
+            <point key="canvasLocation" x="890" y="594"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="carrito-de-compras" width="24" height="24"/>
-        <image name="tienda" width="24" height="24"/>
-        <image name="usuario" width="24" height="24"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

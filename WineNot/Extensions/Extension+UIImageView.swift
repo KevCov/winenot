@@ -22,4 +22,18 @@ extension UIImageView {
             }
         }.resume()
     }
+    
+    func setImageName(name: String) {
+        self.image = UIImage(named: name)
+    }
+    
+    func setRoundCorners(radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+        self.clipsToBounds = true
+    }
+    
+    func setContenMode() {
+        self.contentMode = .scaleAspectFill
+    }
 }

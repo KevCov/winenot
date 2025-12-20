@@ -18,10 +18,10 @@ class APICaller {
     
     private init() {}
     
-    func postRequest<T: Codable, R: Codable>(
+    func request<T: Encodable, R: Decodable>(
         url: String,
-        method: String,
-        body: T,
+        method: HTTPMethod,
+        body: T? = nil,
         completion: @escaping (Result<R, Error>) -> Void
     ) {
         guard let endpoint = URL(string: url) else {
@@ -30,53 +30,17 @@ class APICaller {
         }
         
         var request = URLRequest(url: endpoint)
-        request.httpMethod = method
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = method.rawValue
         
-        do {
-            request.httpBody = try JSONEncoder().encode(body)
-        } catch {
-            completion(.failure(error))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let http = response as? HTTPURLResponse,
-                  (200..<300).contains(http.statusCode) else {
-                completion(.failure(URLError(.badServerResponse)))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(URLError(.cannotDecodeRawData)))
-                return
-            }
-            
+        if let body = body {
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
-                let decoded = try JSONDecoder().decode(R.self, from: data)
-                completion(.success(decoded))
+                request.httpBody = try JSONEncoder().encode(body)
             } catch {
                 completion(.failure(error))
+                return
             }
-        }.resume()
-    }
-    
-    func getRequest<R: Codable>(
-        url: String,
-        completion: @escaping (Result<R, Error>) -> Void
-    ) {
-        guard let endpoint = URL(string: url) else {
-            completion(.failure(URLError(.badURL)))
-            return
         }
-        
-        var request = URLRequest(url: endpoint)
-        request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
