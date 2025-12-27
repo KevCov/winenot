@@ -12,6 +12,11 @@ class StoreController: UIViewController {
         setupCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        productCollection.reloadData()
+    }
+    
     func setupCollectionView() {
         productCollection.setDetegate(vc: self)
         productCollection.setBackgroundColor(color: .clear)
@@ -28,7 +33,7 @@ class StoreController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let viewModels):
-                    self.products.append(contentsOf: viewModels)
+                    self.products = viewModels
                     DispatchQueue.main.async {
                         self.productCollection.reloadData()
                     }

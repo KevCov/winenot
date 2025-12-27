@@ -9,7 +9,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var addButton: UIButton!
     var onAddButtonTapped: (() -> Void)?
     private var currentProduct: ProductCellViewModel?
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellStyle()
@@ -35,12 +35,22 @@ class ProductCollectionViewCell: UICollectionViewCell {
         productNameLabel.configure(text: model.name, color: .black, size: FontSize.medium, weight: .bold)
         productDescriptionLabel.configure(text: model.description, color: .black, size: FontSize.small)
         productPriceLabel.configure(text: "S/. \(model.price)", color: .black, size: FontSize.medium, weight: .bold)
+        let isAdded = CartManager.shared.items.contains(where: { $0.id == model.id })
+        
+        if isAdded {
+            addButton.setTitle("En el Carrito", for: .normal)
+            addButton.backgroundColor = .systemGreen
+        } else {
+            addButton.setTitle("Agregar", for: .normal)
+            addButton.backgroundColor = .appBackground
+        }
     }
     
     func animateAddButtonEffect() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
-        
+        addButton.setTitle("En el Carrito", for: .normal)
+        addButton.backgroundColor = .systemGreen
         UIView.animate(withDuration: 0.1,
                        animations: {
             self.addButton.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
