@@ -14,8 +14,8 @@ class StoreHeaderView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
-        headerTitle.configure(text: "Bienvenido a WineNot", color: UIColor(named: "text-primary") ?? .purple, size: 24, weight: .bold)
+        self.setBackgroundColor(color: .appBackground)
+        headerTitle.configure(text: "Bienvenido a WineNot", color: .appTextPrimary, size: 24, weight: .bold)
         bannerImage.setContenMode()
         bannerImage.setRoundCorners(radius: 10)
         bannerImage.setImageName(name: "banner")

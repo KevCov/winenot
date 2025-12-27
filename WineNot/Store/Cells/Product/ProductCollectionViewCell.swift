@@ -20,8 +20,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellStyle()
-        addButton.setText(text: "Agregar", color: UIColor(named: "text-primary") ?? .white, size: 12, weight: .bold)
-        addButton.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
+        addButton.setText(text: "Agregar", color: .appTextPrimary, size: 12, weight: .bold)
+        addButton.setBackgroundColor(color: .appBackground)
         addButton.setRadius(radius: 10)
     }
     

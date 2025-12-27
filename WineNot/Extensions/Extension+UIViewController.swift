@@ -12,4 +12,10 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
     }
+    
+    func showWarningAlert(message: String) {
+        let alert = UIAlertController(title: "Atención", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Entendido", style: .default))
+        present(alert, animated: true)
+    }
 }
