@@ -16,8 +16,6 @@ class CartManager {
             newProduct.quantity = 1
             items.append(newProduct)
         }
-        
-        NotificationCenter.default.post(name: NSNotification.Name("CartUpdated"), object: nil)
     }
     
     func increaseQuantity(at index: Int) {
@@ -91,7 +89,6 @@ class CartManager {
             switch result {
             case .success:
                 self?.clearCart()
-                NotificationCenter.default.post(name: NSNotification.Name("CartUpdated"), object: nil)
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
