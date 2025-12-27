@@ -27,8 +27,19 @@ class LoginController: UIViewController {
     }
     
     @IBAction func checkCredentials(_ sender: Any) {
-        let email = emailField.text ?? ""
+        let email = (emailField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let pass = passwordField.text ?? ""
+
+        if email.isEmpty || pass.isEmpty {
+            showErrorMessage(message: "Por favor, ingresa tu correo y contraseña.")
+            return
+        }
+        
+        if !email.isValidEmail {
+            showErrorMessage(message: "El formato del correo electrónico no es válido.")
+            return
+        }
+        
         loginButton.isEnabled = false
         
         UserManager.shared.login(email: email, pass: pass) { [weak self] result in
