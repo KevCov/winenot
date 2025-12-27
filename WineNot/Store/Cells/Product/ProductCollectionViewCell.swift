@@ -1,10 +1,3 @@
-//
-//  ProductCollectionViewCell.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 9/12/25.
-//
-
 import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
@@ -20,8 +13,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellStyle()
-        addButton.setText(text: "Agregar", color: UIColor(named: "text-primary") ?? .white, size: 12, weight: .bold)
-        addButton.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
+        addButton.setText(text: "Agregar", color: .appTextPrimary, size: FontSize.small, weight: .bold)
+        addButton.setBackgroundColor(color: .appBackground)
         addButton.setRadius(radius: 10)
     }
     
@@ -39,9 +32,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     func updateCell(model: ProductCellViewModel) {
         self.currentProduct = model
         productImageView.setImage(name: model.imageName)
-        productNameLabel.configure(text: model.name, color: .black, size: 14, weight: .bold)
-        productDescriptionLabel.configure(text: model.description, color: .black, size: 12)
-        productPriceLabel.configure(text: "S/. \(model.price)", color: .black, size: 14, weight: .bold)
+        productNameLabel.configure(text: model.name, color: .black, size: FontSize.medium, weight: .bold)
+        productDescriptionLabel.configure(text: model.description, color: .black, size: FontSize.small)
+        productPriceLabel.configure(text: "S/. \(model.price)", color: .black, size: FontSize.medium, weight: .bold)
     }
     
     func animateAddButtonEffect() {

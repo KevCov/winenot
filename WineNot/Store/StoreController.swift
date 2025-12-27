@@ -1,79 +1,40 @@
-//
-//  ViewController.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 4/12/25.
-//
-
 import UIKit
 
 class StoreController: UIViewController {
     
     @IBOutlet weak var productCollection: UICollectionView!
-    var products: [ProductCellViewModel] = [
-        ProductCellViewModel(
-            name: "Trapiche Fond de Cave Cabernet Sauvignon 750ml 2020",
-            price: "89.50",
-            description: "Cabernet Sauvignon intenso, frutos negros, especias y roble. Un vino con gran estructura y elegancia.",
-            imageName: "concha-toro-marques-cabernet"
-        ),
-        ProductCellViewModel(
-            name: "Luigi Bosca Gala 1 Malbec 750ml 2019",
-            price: "210.00",
-            description: "Malbec de parcela única, frutos rojos, flores y minerales. Un vino complejo y elegante con gran potencial de guarda.",
-            imageName: "concha-todo-melchor-cabernet"
-        ),
-        ProductCellViewModel(
-            name: "Catena Zapata D.V. Catena Cabernet-Malbec 750ml 2019",
-            price: "399.00",
-            description: "Blend equilibrado, frutos negros, especias y notas florales. Un vino complejo y elegante.",
-            imageName: "fond-cave-reserva-cabernet"
-        ),
-        ProductCellViewModel(
-            name: "Concha y Toro Amelia Chardonnay 750ml 2021",
-            price: "45.00",
-            description: "Chardonnay elegante, cítricos, minerales y roble francés. Un vino fresco y complejo.",
-            imageName: "concha-toro-marques-cabernet"
-        )
-    ]
+    var products: [ProductCellViewModel] = []
+    private let service = StoreService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setBackgroundColor(color: UIColor(named: "color-background") ?? .green)
+        view.setBackgroundColor(color: .appBackground)
         setupCollectionView()
     }
     
     func setupCollectionView() {
         productCollection.setDetegate(vc: self)
         productCollection.setBackgroundColor(color: .clear)
-        productCollection.setHeader(uinibName: "StoreHeaderView", cellIdentifier: StoreHeaderView.identifier)
-        productCollection.setCell(uinibName: "ProductCollectionViewCell", cellIdentifier: ProductCollectionViewCell.identifier)
+        productCollection.setHeader(uinibName: StoreHeaderView.identifier, cellIdentifier: StoreHeaderView.identifier)
+        productCollection.setCell(uinibName: ProductCollectionViewCell.identifier, cellIdentifier: ProductCollectionViewCell.identifier)
         productCollection.collectionViewLayout = createCompositionalLayout()
         
-        //loadProducts()
+        loadProducts()
     }
     
     private func loadProducts() {
-        StoreService.shared.getProducts { [weak self] result in
+        service.getProducts { [weak self] result in
             guard let self = self else { return }
-            
-            switch result {
-            case .success(let products):
-                let viewModels = products.map { product in
-                    return ProductCellViewModel(
-                        name: product.name,
-                        price: String(format: "%.2f", product.unitPrice),
-                        description: product.description,
-                        imageName: product.urlImage
-                    )
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let viewModels):
+                    self.products.append(contentsOf: viewModels)
+                    DispatchQueue.main.async {
+                        self.productCollection.reloadData()
+                    }
+                case .failure(let error):
+                    self.showErrorMessage(message: error.localizedDescription)
                 }
-                
-                self.products.append(contentsOf: viewModels)
-                DispatchQueue.main.async {
-                    self.productCollection.reloadData()
-                }
-            case .failure(let error):
-                self.showErrorMessage(message: error.localizedDescription)
             }
         }
     }
@@ -122,7 +83,7 @@ extension StoreController: UICollectionViewDelegate, UICollectionViewDataSource,
         cell.updateCell(model: product)
         
         cell.onAddButtonTapped = {
-            let productCart = ProductCartCellModel(name: product.name, unitPrice: Double(product.price) ?? 0.0, urlImage: product.imageName, quantity: 1)
+            let productCart = ProductCartCellModel(id: product.id , name: product.name, unitPrice: Double(product.price) ?? 0.0, urlImage: product.imageName, quantity: 1)
             CartManager.shared.add(product: productCart)
             
             let generator = UIImpactFeedbackGenerator(style: .medium)

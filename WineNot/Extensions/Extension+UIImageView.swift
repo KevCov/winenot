@@ -8,7 +8,7 @@ extension UIImageView {
         
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             if let error = error {
-                print("Error descargando imagen: \(error.localizedDescription)")
+                print("Error descargando imagen")
                 return
             }
             
