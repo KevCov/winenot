@@ -1,9 +1,3 @@
-//
-//  Extension+UIViewController.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 14/12/25.
-//
 import UIKit
 
 extension UIViewController {
@@ -13,9 +7,23 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showWarningAlert(message: String) {
+    func showWarningAlert(message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: "Atención", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Entendido", style: .default))
+        let action = UIAlertAction(title: "Entendido", style: .default) { _ in
+            completion?()
+        }
+        
+        alert.addAction(action)
         present(alert, animated: true)
+    }
+    
+    func showSuccessMessage(title: String = "¡Éxito!", message: String, buttonText: String = "Genial", completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: buttonText, style: .default) { _ in
+            completion?()
+        }
+        
+        alert.addAction(action)
+        self.present(alert, animated: true)
     }
 }

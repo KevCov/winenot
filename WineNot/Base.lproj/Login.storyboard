@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profile-->
+        <!--Login-->
         <scene sceneID="qnS-yg-lbP">
             <objects>
-                <viewController id="TLD-OL-ZCy" customClass="ProfileController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TLD-OL-ZCy" userLabel="Login" customClass="LoginController" customModule="WineNot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qty-ym-n0A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,7 +74,7 @@
                             <constraint firstItem="oe8-24-ac0" firstAttribute="top" secondItem="FfJ-EX-3Nm" secondAttribute="bottom" constant="40" id="pSB-w7-8ob"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="usuario" selectedImage="usuario" id="wQa-n6-a07"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="usuario" selectedImage="usuario" id="wQa-n6-a07" userLabel="Login"/>
                     <connections>
                         <outlet property="emailField" destination="oe8-24-ac0" id="FOm-lf-Bdj"/>
                         <outlet property="loginButton" destination="FFe-Se-eJG" id="N99-kl-xcc"/>

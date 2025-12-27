@@ -1,12 +1,10 @@
 import Foundation
 
 class OrderService {
-    let urlBase: String = "http://18.232.55.138:8050"
-    
     init() {}
     
     func createOrder(request: OrderRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        let url = "\(urlBase)/api/v1/orders/create"
+        let url = "\(API.Endpoints.orders)/create"
         APICaller.shared.request(url: url, method: .POST, body: request) { (result: Result<Int, Error>) in
             switch result {
             case .success:
@@ -18,7 +16,7 @@ class OrderService {
     }
     
     func getOrders(id: String, completion: @escaping (Result<[OrderCellModel], Error>) -> Void) {
-        let url = "\(urlBase)/api/v1/orders/by-user/\(id)"
+        let url = "\(API.Endpoints.orders)/by-user/\(id)"
         APICaller.shared.request(url: url, method: .GET, body: nil as String?) { (result: Result<[OrderResponse], Error>) in
             switch result {
             case .success(let response):

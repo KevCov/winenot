@@ -1,19 +1,11 @@
 import Foundation
 
-struct UserProfile {
-    let id: String
-    let name: String
-    let email: String
-    let address: String
-    let phone: String
-}
-
-class UserSession {
-    static let shared = UserSession()
+class UserManager {
+    static let shared = UserManager()
     
     private(set) var isLoggedIn: Bool = false
     private(set) var currentUser: CustomerResponse?
-    private let service = ProfileService()
+    private let service = LoginService()
     
     private init() {}
     

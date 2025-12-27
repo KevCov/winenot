@@ -1,13 +1,6 @@
-//
-//  Extension+UICollectionView.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 20/12/25.
-//
 import UIKit
 
 extension UICollectionView {
-    
     func setDetegate(vc: UICollectionViewDelegate&UICollectionViewDataSource) {
         self.delegate = vc
         self.dataSource = vc

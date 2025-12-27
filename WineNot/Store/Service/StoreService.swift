@@ -1,16 +1,10 @@
-//
-//  StoreService.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 14/12/25.
-//
 import Foundation
 
 class StoreService {
-    static let shared = StoreService()
+    init() {}
     
     func getProducts(completion: @escaping (Result<[ProductCellViewModel], Error>) -> Void) {
-        let url = "http://18.232.55.138:8050/api/v1/products"
+        let url = API.Endpoints.products
         
         APICaller.shared.request(url: url, method: .GET, body: nil as String?) { (result: Result<Pageable, Error>) in
             switch result {

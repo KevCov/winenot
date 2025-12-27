@@ -51,53 +51,51 @@ class CartManager {
     }
     
     func checkout(completion: @escaping (Result<Void, Error>) -> Void) {
-            guard let user = UserSession.shared.currentUser else {
-                let error = NSError(domain: "Cart", code: 401, userInfo: [NSLocalizedDescriptionKey: "Usuario no logueado"])
-                completion(.failure(error))
-                return
-            }
-            
-            guard !items.isEmpty else {
-                let error = NSError(domain: "Cart", code: 400, userInfo: [NSLocalizedDescriptionKey: "El carrito está vacío"])
-                completion(.failure(error))
-                return
-            }
-            
-            let productRequests = items.map { item in
-                return ProductPurchaseRequest(id: item.id, quantity: item.quantity)
-            }
-            
-            let shipping = ShippingResponse(
-                id: nil,
-                customerId: String(user.id),
-                department: user.address.department,
-                province: user.address.province,
-                district: user.address.district,
-                street: user.address.street,
-                houseNumber: user.address.houseNumber,
-                zipCode: user.address.zipCode
-            )
-            
-            let orderRequest = OrderRequest(
-                totalAmount: getTotal(),
-                paymentMethod: .visa,
-                customerId: Int(user.id) ?? 0,
-                cardLast4: "4242",
-                shipping: shipping,
-                products: productRequests
-            )
+        guard let user = UserManager.shared.currentUser else {
+            let error = NSError(domain: "Cart", code: 401, userInfo: [NSLocalizedDescriptionKey: "Usuario no logueado"])
+            completion(.failure(error))
+            return
+        }
         
-        print(orderRequest)
-            
-            service.createOrder(request: orderRequest) { [weak self] result in
-                switch result {
-                case .success:
-                    self?.clearCart()
-                    NotificationCenter.default.post(name: NSNotification.Name("CartUpdated"), object: nil)
-                    completion(.success(()))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+        guard !items.isEmpty else {
+            let error = NSError(domain: "Cart", code: 400, userInfo: [NSLocalizedDescriptionKey: "El carrito está vacío"])
+            completion(.failure(error))
+            return
+        }
+        
+        let productRequests = items.map { item in
+            return ProductPurchaseRequest(id: item.id, quantity: item.quantity)
+        }
+        
+        let shipping = ShippingResponse(
+            id: nil,
+            customerId: String(user.id),
+            department: user.address.department,
+            province: user.address.province,
+            district: user.address.district,
+            street: user.address.street,
+            houseNumber: user.address.houseNumber,
+            zipCode: user.address.zipCode
+        )
+        
+        let orderRequest = OrderRequest(
+            totalAmount: getTotal(),
+            paymentMethod: .visa,
+            customerId: Int(user.id) ?? 0,
+            cardLast4: "4242",
+            shipping: shipping,
+            products: productRequests
+        )
+        
+        service.createOrder(request: orderRequest) { [weak self] result in
+            switch result {
+            case .success:
+                self?.clearCart()
+                NotificationCenter.default.post(name: NSNotification.Name("CartUpdated"), object: nil)
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
+    }
 }

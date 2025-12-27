@@ -17,13 +17,11 @@ class OrderCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
     func updateCell(model: OrderCellModel) {
-        totalAmount.configure(text: "Total: S/. \(model.total)", color: .black, size: 16, weight: .bold)
-        numberOrder.configure(text: "Orden N° \(model.numberOrder)", color: .black, size: 16, weight: .bold)
-        cantidad.configure(text: "Cant. \(model.quantity)", color: .black, size: 16, weight: .bold)
+        totalAmount.configure(text: "Total: S/. \(model.total)", color: .black, size: FontSize.regular, weight: .bold)
+        numberOrder.configure(text: "Orden N° \(model.numberOrder)", color: .black, size: FontSize.regular, weight: .bold)
+        cantidad.configure(text: "Cant. \(model.quantity)", color: .black, size: FontSize.regular, weight: .bold)
     }
-    
 }

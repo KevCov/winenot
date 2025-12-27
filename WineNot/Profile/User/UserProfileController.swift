@@ -1,6 +1,6 @@
 import UIKit
 
-class UserProfileViewController: UIViewController {
+class UserProfileController: UIViewController {
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var dniLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
@@ -28,23 +28,23 @@ class UserProfileViewController: UIViewController {
         orderTableView.setBackgroundColor(color: .clear)
         
         let fullname = "\(user?.firstName ?? "Usuario") \(user?.lastName ?? "Anonimo")"
-        fullNameLabel.configure(text: fullname, color: .appTextPrimary, size: 15, weight: .bold)
+        fullNameLabel.configure(text: fullname, color: .appTextPrimary, size: FontSize.regular, weight: .bold)
         
-        dniLabel.configure(text: "DNI", color: .appTextPrimary, size: 14, weight: .bold)
-        dniValue.configure(text: user?.dni ?? "N/A", color: .appTextPrimary, size: 13, weight: .bold)
+        dniLabel.configure(text: "DNI", color: .appTextPrimary, size: FontSize.medium, weight: .bold)
+        dniValue.configure(text: user?.dni ?? "N/A", color: .appTextPrimary, size: FontSize.small, weight: .bold)
         
-        emailLabel.configure(text: "Correo Electrónico", color: .appTextPrimary, size: 14, weight: .bold)
-        emailValue.configure(text: user?.email ?? "N/A", color: .appTextPrimary, size: 13, weight: .bold)
+        emailLabel.configure(text: "Correo Electrónico", color: .appTextPrimary, size: FontSize.medium, weight: .bold)
+        emailValue.configure(text: user?.email ?? "N/A", color: .appTextPrimary, size: FontSize.small, weight: .bold)
         
-        phoneNumberLabel.configure(text: "Celular", color: .appTextPrimary, size: 14, weight: .bold)
-        phoneNumberValue.configure(text: user?.phoneNumber ?? "N/A", color: .appTextPrimary, size: 13, weight: .bold)
+        phoneNumberLabel.configure(text: "Celular", color: .appTextPrimary, size: FontSize.medium, weight: .bold)
+        phoneNumberValue.configure(text: user?.phoneNumber ?? "N/A", color: .appTextPrimary, size: FontSize.small, weight: .bold)
         
-        let addressComplete = "\(user?.address.district ?? "N/A") - \(user?.address.street ?? "N/A"), \(user?.address.houseNumber.description ?? "N/A")"
+        let addressComplete = "\(user?.address.district ?? "N/A") - \(user?.address.street ?? "N/A"), \(String(user?.address.houseNumber ?? 0))"
         
-        addressLabel.configure(text: "Dirección", color: .appTextPrimary, size: 14, weight: .bold)
-        addressValue.configure(text: addressComplete, color: .appTextPrimary, size: 13, weight: .bold)
+        addressLabel.configure(text: "Dirección", color: .appTextPrimary, size: FontSize.medium, weight: .bold)
+        addressValue.configure(text: addressComplete, color: .appTextPrimary, size: FontSize.small, weight: .bold)
         
-        logoutButton.setText(text: "Cerrar Sesión", color: .appBackground, size: 16, weight: .bold)
+        logoutButton.setText(text: "Cerrar Sesión", color: .appBackground, size: FontSize.regular, weight: .bold)
         logoutButton.setBackgroundColor(color: .appTextPrimary)
         loadOrders(customerId: user?.id ?? "0")
     }
@@ -55,7 +55,7 @@ class UserProfileViewController: UIViewController {
     }
     
     @IBAction func logoutProfile(_ sender: Any) {
-        UserSession.shared.logout()
+        UserManager.shared.logout()
         onLogout?()
     }
     
@@ -75,7 +75,7 @@ class UserProfileViewController: UIViewController {
     }
 }
 
-extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
+extension UserProfileController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orders.count
     }

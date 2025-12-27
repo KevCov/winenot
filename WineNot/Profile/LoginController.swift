@@ -1,6 +1,6 @@
 import UIKit
 
-class ProfileController: UIViewController {
+class LoginController: UIViewController {
     
     @IBOutlet weak var loginImage: UIImageView!
     @IBOutlet weak var emailField: UITextField!
@@ -10,16 +10,16 @@ class ProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginTitle.configure(text: "Inicia Sesión", color: .appBackground, size: 28, weight: .bold)
+        loginTitle.configure(text: "Inicia Sesión", color: .appBackground, size: FontSize.title, weight: .bold)
         loginImage.setImageName(name: "login-image")
         emailField.setPlaceholder(text: "Ingrese su correo electrónico")
         passwordField.setPlaceholder(text: "Ingrese su clave secreta")
         passwordField.asPassword()
-        loginButton.setText(text: "Iniciar Sesión", color: .appTextPrimary, size: 16, weight: .bold)
+        loginButton.setText(text: "Iniciar Sesión", color: .appTextPrimary, size: FontSize.regular, weight: .bold)
         loginButton.setBackgroundColor(color: .appBackground)
         loginImage.setRoundCorners(radius: 10)
         
-        if UserSession.shared.isLoggedIn {
+        if UserManager.shared.isLoggedIn {
             showUserProfileView()
         }
         
@@ -31,7 +31,7 @@ class ProfileController: UIViewController {
         let pass = passwordField.text ?? ""
         loginButton.isEnabled = false
         
-        UserSession.shared.login(email: email, pass: pass) { [weak self] result in
+        UserManager.shared.login(email: email, pass: pass) { [weak self] result in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
@@ -41,22 +41,21 @@ class ProfileController: UIViewController {
                 case .success:
                     self.showUserProfileView()
                     
-                case .failure(let error):
-                    print("Error login: \(error.localizedDescription)")
-                    let alert = UIAlertController(title: "Error", message: "Credenciales incorrectas o error de red", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default))
-                    self.present(alert, animated: true)
+                case .failure(_):
+                    self.showErrorMessage(message: "Credenciales incorrectas o error de red")
                 }
             }
         }
     }
     
     func showUserProfileView() {
-        let profileVC = UserProfileViewController(nibName: "UserProfileViewController", bundle: nil)
-        profileVC.user = UserSession.shared.currentUser
+        let profileVC = UserProfileController(nibName: "UserProfileController", bundle: nil)
+        profileVC.user = UserManager.shared.currentUser
         
         profileVC.onLogout = { [weak self] in
             self?.removeChildVC(profileVC)
+            self?.passwordField.text = ""
+            self?.emailField.text = ""
         }
         
         addChild(profileVC)

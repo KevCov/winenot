@@ -1,16 +1,10 @@
-//
-//  ViewController.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 4/12/25.
-//
-
 import UIKit
 
 class StoreController: UIViewController {
     
     @IBOutlet weak var productCollection: UICollectionView!
     var products: [ProductCellViewModel] = []
+    private let service = StoreService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +15,15 @@ class StoreController: UIViewController {
     func setupCollectionView() {
         productCollection.setDetegate(vc: self)
         productCollection.setBackgroundColor(color: .clear)
-        productCollection.setHeader(uinibName: "StoreHeaderView", cellIdentifier: StoreHeaderView.identifier)
-        productCollection.setCell(uinibName: "ProductCollectionViewCell", cellIdentifier: ProductCollectionViewCell.identifier)
+        productCollection.setHeader(uinibName: StoreHeaderView.identifier, cellIdentifier: StoreHeaderView.identifier)
+        productCollection.setCell(uinibName: ProductCollectionViewCell.identifier, cellIdentifier: ProductCollectionViewCell.identifier)
         productCollection.collectionViewLayout = createCompositionalLayout()
         
         loadProducts()
     }
     
     private func loadProducts() {
-        StoreService.shared.getProducts { [weak self] result in
+        service.getProducts { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

@@ -1,9 +1,3 @@
-//
-//  Extension+UIField.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 20/12/25.
-//
 import UIKit
 
 extension UITextField {

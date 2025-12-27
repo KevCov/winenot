@@ -1,10 +1,3 @@
-//
-//  ProductCartCell.swift
-//  WineNot
-//
-//  Created by Kevin Cordova Aquije on 14/12/25.
-//
-
 import UIKit
 
 class ProductCartCell: UITableViewCell {
@@ -31,10 +24,10 @@ class ProductCartCell: UITableViewCell {
     
     func updateCell(model: ProductCartCellModel) {
         productCartImage.setImage(name: model.urlImage)
-        productCartName.configure(text: model.name, color: .black, size: 14, weight: .bold)
+        productCartName.configure(text: model.name, color: .black, size: FontSize.medium, weight: .bold)
         let price = String(format: "%.2f", model.unitPrice)
-        productCartPrice.configure(text: "S/. \(price)", color: .black, size: 14, weight: .bold)
-        productCartQuantity.configure(text: "\(model.quantity)", color: .black, size: 12)
+        productCartPrice.configure(text: "S/. \(price)", color: .black, size: FontSize.medium, weight: .bold)
+        productCartQuantity.configure(text: "\(model.quantity)", color: .black, size: FontSize.small)
     }
     
     @IBAction func addQuantity(_ sender: Any) {
